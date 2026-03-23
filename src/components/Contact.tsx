@@ -34,7 +34,7 @@ function Contact() {
               variant="contained"
               size="large"
               startIcon={<Email />}
-              href="mailto:your.email@example.com"
+              href="mailto:sasuke.miyazawa@gmail.com"
             >
               メール
             </Button>

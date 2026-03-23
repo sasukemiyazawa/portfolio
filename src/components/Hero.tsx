@@ -1,7 +1,8 @@
 import { Box, Container, Typography, Button } from "@mui/material";
 import { motion } from "motion/react";
 
-const MotionBox = motion(Box);
+// FIXME: motion.divをmotion.create(Box)に変更
+const MotionBox = motion.create(Box);
 
 function Hero({
   scrollToProject,

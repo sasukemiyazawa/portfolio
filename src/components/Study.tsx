@@ -7,11 +7,19 @@ import {
   Chip,
   Divider,
 } from "@mui/material";
-import { Science, AutoStories, Code, Lightbulb } from "@mui/icons-material";
+import {
+  Science,
+  AutoStories,
+  Code,
+  Lightbulb,
+  PsychologyAlt,
+  GraphicEq,
+} from "@mui/icons-material";
 import { motion } from "motion/react";
 
 function Study({ ref }: { ref: React.Ref<HTMLDivElement> }) {
-  const MotionBox = motion(Box);
+  // TODO: motion.create(Box)に変更したが、MotionBoxが再利用可能なモーションコンポーネントとして機能しているか確認する
+  const MotionBox = motion.create(Box);
   const research = [
     {
       id: 1,
@@ -24,7 +32,7 @@ function Study({ ref }: { ref: React.Ref<HTMLDivElement> }) {
         "脳波測定とERP抽出",
         "EEGLAB-Matlabを用いたデータ処理",
       ],
-      icon: <Science sx={{ fontSize: 40 }} />,
+      icon: <PsychologyAlt sx={{ fontSize: 40 }} />,
       color: "#9c27b0",
     },
     {
@@ -38,7 +46,7 @@ function Study({ ref }: { ref: React.Ref<HTMLDivElement> }) {
         "データ分析と統計解析",
         "心理指標・行動指標の両面からのアプローチ",
       ],
-      icon: <AutoStories sx={{ fontSize: 40 }} />,
+      icon: <GraphicEq sx={{ fontSize: 40 }} />,
       color: "#2196f3",
     },
   ];

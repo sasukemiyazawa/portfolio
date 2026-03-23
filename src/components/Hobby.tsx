@@ -8,12 +8,31 @@ import {
   CardContent,
   IconButton,
 } from "@mui/material";
-import { ArrowBack, ArrowForward, Hiking, MenuBook, MusicNote } from "@mui/icons-material";
+import {
+  ArrowBack,
+  ArrowForward,
+  Hiking,
+  MenuBook,
+  MusicNote,
+} from "@mui/icons-material";
 import { motion } from "motion/react";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback } from "react";
 
-const MotionCard = motion(Card);
+import music1 from "../assets/hobby/music1.png";
+import music2 from "../assets/hobby/music2.png";
+import music3 from "../assets/hobby/music3.png";
+import book1 from "../assets/hobby/book1.jpg";
+import book2 from "../assets/hobby/book2.png";
+import book3 from "../assets/hobby/book3.png";
+import mount1 from "../assets/hobby/mount1.jpg";
+import mount2 from "../assets/hobby/mount2.jpg";
+import mount3 from "../assets/hobby/mount3.jpg";
+import mount4 from "../assets/hobby/mount4.jpg";
+import circle from "../assets/hobby/circle.png";
+import { object } from "motion/react-client";
+
+const MotionCard = motion.create(Card);
 
 // -------------------------------------------------------
 // Emblaスライダー（Project.tsxと同じ実装）
@@ -34,7 +53,7 @@ function ImageSlider({
       e.stopPropagation();
       emblaApi?.scrollPrev();
     },
-    [emblaApi]
+    [emblaApi],
   );
 
   const scrollNext = useCallback(
@@ -42,7 +61,7 @@ function ImageSlider({
       e.stopPropagation();
       emblaApi?.scrollNext();
     },
-    [emblaApi]
+    [emblaApi],
   );
 
   return (
@@ -55,7 +74,7 @@ function ImageSlider({
                 component="img"
                 image={image}
                 alt={`${title} - ${i + 1}`}
-                sx={{ height, objectFit: "cover", width: "100%" }}
+                sx={{ height, objectFit: "contain", width: "100%" }}
               />
             </Box>
           ))}
@@ -114,11 +133,8 @@ function Hobby({ ref }: { ref: React.Ref<HTMLDivElement> }) {
       id: 1,
       title: "音楽活動",
       description:
-        "バンドやセッションでギターを演奏しています。アレンジやDTMも行っています。日々に欠かせない趣味です。",
-      images: [
-        "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&auto=format&fit=crop",
-      ],
+        "バンドやセッションでギターを演奏しています。アレンジやDTMも行っています。私の日々に欠かせない趣味です。",
+      images: [music1, music2, music3],
       icon: <MusicNote />,
     },
     {
@@ -126,10 +142,7 @@ function Hobby({ ref }: { ref: React.Ref<HTMLDivElement> }) {
       title: "批評サークル",
       description:
         "noteとYoutubeで、アニメや漫画の批評を発信しています。自分の視点を深めることが楽しいです。",
-      images: [
-        "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&auto=format&fit=crop",
-      ],
+      images: [circle],
       icon: <MenuBook />,
     },
     {
@@ -137,10 +150,7 @@ function Hobby({ ref }: { ref: React.Ref<HTMLDivElement> }) {
       title: "登山",
       description:
         "自然の中で過ごす時間が好きで、暇があれば登山に出かけています。数少ない運動の機会でもあります。",
-      images: [
-        "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&auto=format&fit=crop",
-      ],
+      images: [mount1, mount2, mount3, mount4],
       icon: <Hiking />,
     },
     {
@@ -148,10 +158,7 @@ function Hobby({ ref }: { ref: React.Ref<HTMLDivElement> }) {
       title: "読書",
       description:
         "哲学や文学、プログラミングも音楽も勉強はすべて読書から始めます。読書という1人の時間からみんなの時間に繋がるのが好きです。",
-      images: [
-        "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&auto=format&fit=crop",
-      ],
+      images: [book1, book2, book3],
       icon: <MenuBook />,
     },
   ];
