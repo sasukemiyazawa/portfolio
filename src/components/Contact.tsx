@@ -42,7 +42,7 @@ function Contact() {
               variant="outlined"
               size="large"
               startIcon={<GitHub />}
-              href="https://github.com"
+              href="https://github.com/sasukemiyazawa"
               target="_blank"
               rel="noopener noreferrer"
             >
