@@ -1,6 +1,6 @@
 import { Box, Container, Typography, Button } from "@mui/material";
 import { Email, GitHub, LinkedIn } from "@mui/icons-material";
-function Work() {
+function Contact() {
   return (
     // {/* Contact Section */}
     <Box
@@ -48,20 +48,10 @@ function Work() {
             >
               GitHub
             </Button>
-            <Button
-              variant="outlined"
-              size="large"
-              startIcon={<LinkedIn />}
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </Button>
           </Box>
         </Box>
       </Container>
     </Box>
   );
 }
-export default Work;
+export default Contact;

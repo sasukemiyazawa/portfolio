@@ -3,7 +3,15 @@ import { motion } from "motion/react";
 
 const MotionBox = motion(Box);
 
-function Hero() {
+function Hero({
+  scrollToProject,
+  scrollToStudy,
+  scrollToHobby,
+}: {
+  scrollToProject: () => void;
+  scrollToStudy: () => void;
+  scrollToHobby: () => void;
+}) {
   return (
     <Box
       sx={{
@@ -26,22 +34,24 @@ function Hero() {
           sx={{ textAlign: "center", height: "25vh", paddingTop: "25vh" }}
         >
           <Typography variant="h2" component="h1" gutterBottom sx={{ mb: 3 }}>
-            こんにちは、私は
+            はじめまして、
           </Typography>
           <Typography
             variant="h2"
             component="span"
             sx={{ display: "block", color: "primary.main", mb: 4 }}
           >
-            クリエイティブデベロッパー
+            宮沢颯助です。
           </Typography>
           <Typography
             variant="h6"
             color="text.secondary"
-            sx={{ mb: 6, maxWidth: 700, mx: "auto" }}
+            sx={{ mb: 6, maxWidth: 1000, mx: "auto" }}
           >
-            ユーザー体験を重視した Web
-            アプリケーションとデジタルソリューションを制作しています
+            ReactとTypeScriptを中心に、フロントエンドからバックエンドまで幅広く開発しています。
+            このポートフォリオでは、私のプロジェクトや研究活動、趣味などを紹介しています。
+            <br />
+            よろしくお願いします！
           </Typography>
           <Box
             sx={{
@@ -54,16 +64,23 @@ function Hero() {
             <Button
               variant="contained"
               size="large"
-              // onClick={() => scrollToSection("projects")}
+              onClick={() => scrollToProject()}
             >
               作品を見る
             </Button>
             <Button
               variant="outlined"
               size="large"
-              // onClick={() => scrollToSection("contact")}
+              onClick={() => scrollToStudy()}
             >
-              お問い合わせ
+              研究を見る
+            </Button>
+            <Button
+              variant="outlined"
+              size="large"
+              onClick={() => scrollToHobby()}
+            >
+              趣味を見る
             </Button>
           </Box>
         </MotionBox>

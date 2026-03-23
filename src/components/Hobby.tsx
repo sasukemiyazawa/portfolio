@@ -6,49 +6,157 @@ import {
   Card,
   CardMedia,
   CardContent,
+  IconButton,
 } from "@mui/material";
+import { ArrowBack, ArrowForward, Hiking, MenuBook, MusicNote } from "@mui/icons-material";
 import { motion } from "motion/react";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback } from "react";
+
 const MotionCard = motion(Card);
-import { CameraAlt, Hiking, MenuBook, MusicNote } from "@mui/icons-material";
-function Hobby() {
+
+// -------------------------------------------------------
+// Emblaスライダー（Project.tsxと同じ実装）
+// -------------------------------------------------------
+function ImageSlider({
+  images,
+  height,
+  title,
+}: {
+  images: string[];
+  height: number;
+  title: string;
+}) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+
+  const scrollPrev = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      emblaApi?.scrollPrev();
+    },
+    [emblaApi]
+  );
+
+  const scrollNext = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      emblaApi?.scrollNext();
+    },
+    [emblaApi]
+  );
+
+  return (
+    <Box sx={{ position: "relative", height, overflow: "hidden" }}>
+      <Box ref={emblaRef} sx={{ overflow: "hidden", height: "100%" }}>
+        <Box sx={{ display: "flex", height: "100%" }}>
+          {images.map((image, i) => (
+            <Box key={i} sx={{ flex: "0 0 100%", minWidth: 0 }}>
+              <CardMedia
+                component="img"
+                image={image}
+                alt={`${title} - ${i + 1}`}
+                sx={{ height, objectFit: "cover", width: "100%" }}
+              />
+            </Box>
+          ))}
+        </Box>
+      </Box>
+
+      {/* 画像が複数のときだけ矢印を表示 */}
+      {images.length > 1 && (
+        <>
+          <IconButton
+            onClick={scrollPrev}
+            className="slider-arrows"
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: 8,
+              transform: "translateY(-50%)",
+              bgcolor: "rgba(255,255,255,0.9)",
+              opacity: 0,
+              transition: "opacity 0.3s",
+              zIndex: 2,
+              "&:hover": { bgcolor: "rgba(255,255,255,1)" },
+            }}
+          >
+            <ArrowBack />
+          </IconButton>
+          <IconButton
+            onClick={scrollNext}
+            className="slider-arrows"
+            sx={{
+              position: "absolute",
+              top: "50%",
+              right: 8,
+              transform: "translateY(-50%)",
+              bgcolor: "rgba(255,255,255,0.9)",
+              opacity: 0,
+              transition: "opacity 0.3s",
+              zIndex: 2,
+              "&:hover": { bgcolor: "rgba(255,255,255,1)" },
+            }}
+          >
+            <ArrowForward />
+          </IconButton>
+        </>
+      )}
+    </Box>
+  );
+}
+
+// -------------------------------------------------------
+// Hobby コンポーネント本体
+// -------------------------------------------------------
+function Hobby({ ref }: { ref: React.Ref<HTMLDivElement> }) {
   const hobbies = [
     {
       id: 1,
-      title: "写真撮影",
+      title: "音楽活動",
       description:
-        "風景や街並みを撮影することが好きです。特に夕暮れ時の光を捉えることに魅力を感じています。",
-      image:
+        "バンドやセッションでギターを演奏しています。アレンジやDTMも行っています。日々に欠かせない趣味です。",
+      images: [
         "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&auto=format&fit=crop",
-      icon: <CameraAlt />,
+        "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=800&auto=format&fit=crop",
+      ],
+      icon: <MusicNote />,
     },
     {
       id: 2,
-      title: "ハイキング",
+      title: "批評サークル",
       description:
-        "自然の中を歩くことでリフレッシュし、新しいアイデアを得ています。",
-      image:
+        "noteとYoutubeで、アニメや漫画の批評を発信しています。自分の視点を深めることが楽しいです。",
+      images: [
         "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&auto=format&fit=crop",
-      icon: <Hiking />,
-    },
-    {
-      id: 3,
-      title: "読書",
-      description:
-        "技術書からフィクションまで幅広く読んでいます。知識の探求が楽しみです。",
-      image:
-        "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&auto=format&fit=crop",
+      ],
       icon: <MenuBook />,
     },
     {
-      id: 4,
-      title: "音楽鑑賞",
+      id: 3,
+      title: "登山",
       description:
-        "ジャズやクラシックを聴きながらコーディングすることが多いです。",
-      image:
+        "自然の中で過ごす時間が好きで、暇があれば登山に出かけています。数少ない運動の機会でもあります。",
+      images: [
+        "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&auto=format&fit=crop",
+      ],
+      icon: <Hiking />,
+    },
+    {
+      id: 4,
+      title: "読書",
+      description:
+        "哲学や文学、プログラミングも音楽も勉強はすべて読書から始めます。読書という1人の時間からみんなの時間に繋がるのが好きです。",
+      images: [
         "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&auto=format&fit=crop",
-      icon: <MusicNote />,
+        "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&auto=format&fit=crop",
+      ],
+      icon: <MenuBook />,
     },
   ];
+
+  const IMAGE_HEIGHT = 260; // ← ここを変えると画像の高さを調整できます
 
   return (
     <Box
@@ -64,7 +172,7 @@ function Hobby() {
       }}
     >
       <Container maxWidth="lg">
-        <Box>
+        <Box ref={ref}>
           <Typography
             variant="h3"
             component="h2"
@@ -81,22 +189,19 @@ function Hobby() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.1,
-                  }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   sx={{
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
+                    // ホバー時に矢印を表示
+                    "&:hover .slider-arrows": { opacity: 1 },
                   }}
                 >
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={hobby.image}
-                    alt={hobby.title}
-                    sx={{ objectFit: "cover" }}
+                  <ImageSlider
+                    images={hobby.images}
+                    height={IMAGE_HEIGHT}
+                    title={hobby.title}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Box
@@ -107,12 +212,7 @@ function Hobby() {
                         mb: 2,
                       }}
                     >
-                      <Box
-                        sx={{
-                          color: "primary.main",
-                          display: "flex",
-                        }}
-                      >
+                      <Box sx={{ color: "primary.main", display: "flex" }}>
                         {hobby.icon}
                       </Box>
                       <Typography variant="h6" component="h3">
@@ -132,4 +232,5 @@ function Hobby() {
     </Box>
   );
 }
+
 export default Hobby;
