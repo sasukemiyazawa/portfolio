@@ -1,5 +1,5 @@
 import { Box, Container, Typography, Button } from "@mui/material";
-import { Email, GitHub, LinkedIn } from "@mui/icons-material";
+import { Email, GitHub } from "@mui/icons-material";
 function Contact() {
   return (
     // {/* Contact Section */}
@@ -42,7 +42,7 @@ function Contact() {
               variant="outlined"
               size="large"
               startIcon={<GitHub />}
-              href="https://github.com"
+              href="https://github.com/sasukemiyazawa"
               target="_blank"
               rel="noopener noreferrer"
             >

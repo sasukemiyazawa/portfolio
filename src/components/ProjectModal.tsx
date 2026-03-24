@@ -14,7 +14,7 @@ import { IconButton } from "@mui/material";
 import { Close, OpenInNew } from "@mui/icons-material";
 import Slider from "react-slick";
 import { motion } from "motion/react";
-import { useState } from "react";
+
 import { CustomArrow } from "./CustomArrow";
 
 function ProjectModal({

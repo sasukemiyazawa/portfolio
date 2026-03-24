@@ -30,7 +30,6 @@ import mount2 from "../assets/hobby/mount2.jpg";
 import mount3 from "../assets/hobby/mount3.jpg";
 import mount4 from "../assets/hobby/mount4.jpg";
 import circle from "../assets/hobby/circle.png";
-import { object } from "motion/react-client";
 
 const MotionCard = motion.create(Card);
 

@@ -127,13 +127,7 @@ function ImageSlider({
 // -------------------------------------------------------
 // Project コンポーネント本体
 // -------------------------------------------------------
-function Project({
-  props,
-  ref,
-}: {
-  props: any;
-  ref: React.Ref<HTMLDivElement>;
-}) {
+function Project({ ref }: { ref: React.Ref<HTMLDivElement> }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [selectedProject, setSelectedProject] = useState<number | null>(null);

@@ -7,14 +7,7 @@ import {
   Chip,
   Divider,
 } from "@mui/material";
-import {
-  Science,
-  AutoStories,
-  Code,
-  Lightbulb,
-  PsychologyAlt,
-  GraphicEq,
-} from "@mui/icons-material";
+import { PsychologyAlt, GraphicEq } from "@mui/icons-material";
 import { motion } from "motion/react";
 
 function Study({ ref }: { ref: React.Ref<HTMLDivElement> }) {
