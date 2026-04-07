@@ -9,13 +9,69 @@ import {
   CardMedia,
   Chip,
   Divider,
+  IconButton,
 } from "@mui/material";
-import { IconButton } from "@mui/material";
-import { Close, OpenInNew } from "@mui/icons-material";
-import Slider from "react-slick";
+import { Close, OpenInNew, ArrowBack, ArrowForward } from "@mui/icons-material";
 import { motion } from "motion/react";
-import { useState } from "react";
-import { CustomArrow } from "./CustomArrow";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback } from "react";
+
+// モーダル内スライダー（embla版）
+function ModalSlider({ images, title }: { images: string[]; title: string }) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
+  return (
+    <Box sx={{ position: "relative", mb: 3 }}>
+      <Box ref={emblaRef} sx={{ overflow: "hidden", borderRadius: 1 }}>
+        <Box sx={{ display: "flex" }}>
+          {images.map((image, i) => (
+            <Box key={i} sx={{ flex: "0 0 100%", minWidth: 0 }}>
+              <CardMedia
+                component="img"
+                image={image}
+                alt={`${title} - ${i + 1}`}
+                sx={{ height: 400, objectFit: "contain", width: "100%" }}
+              />
+            </Box>
+          ))}
+        </Box>
+      </Box>
+      {images.length > 1 && (
+        <>
+          <IconButton
+            onClick={scrollPrev}
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: 8,
+              transform: "translateY(-50%)",
+              bgcolor: "rgba(255,255,255,0.9)",
+              "&:hover": { bgcolor: "white" },
+            }}
+          >
+            <ArrowBack />
+          </IconButton>
+          <IconButton
+            onClick={scrollNext}
+            sx={{
+              position: "absolute",
+              top: "50%",
+              right: 8,
+              transform: "translateY(-50%)",
+              bgcolor: "rgba(255,255,255,0.9)",
+              "&:hover": { bgcolor: "white" },
+            }}
+          >
+            <ArrowForward />
+          </IconButton>
+        </>
+      )}
+    </Box>
+  );
+}
 
 function ProjectModal({
   selectedProject,
@@ -26,8 +82,9 @@ function ProjectModal({
   setSelectedProject: (id: number | null) => void;
   projects: any[];
 }) {
+  const project = projects.find((p) => p.id === selectedProject);
+
   return (
-    // {/* Project Modal */}
     <Dialog
       open={selectedProject !== null}
       onClose={() => setSelectedProject(null)}
@@ -41,7 +98,7 @@ function ProjectModal({
         transition: { duration: 0.3 },
       }}
     >
-      {selectedProject !== null && (
+      {project && (
         <>
           <DialogTitle
             sx={{
@@ -51,82 +108,51 @@ function ProjectModal({
             }}
           >
             <Typography variant="h5" component="div">
-              {projects.find((p) => p.id === selectedProject)?.title}
+              {project.title}
             </Typography>
             <IconButton onClick={() => setSelectedProject(null)} size="small">
               <Close />
             </IconButton>
           </DialogTitle>
+
           <DialogContent dividers>
-            <Box sx={{ mb: 3 }}>
-              <Slider
-                dots={true}
-                infinite={true}
-                speed={500}
-                slidesToShow={1}
-                slidesToScroll={1}
-                arrows={true}
-                nextArrow={<CustomArrow direction="next" />}
-                prevArrow={<CustomArrow direction="prev" />}
-              >
-                {projects
-                  .find((p) => p.id === selectedProject)
-                  ?.images.map((image: string, imgIndex: number) => (
-                    <Box key={imgIndex}>
-                      <CardMedia
-                        component="img"
-                        image={image}
-                        alt={`${
-                          projects.find((p) => p.id === selectedProject)?.title
-                        } - ${imgIndex + 1}`}
-                        sx={{
-                          height: 400,
-                          objectFit: "cover",
-                          borderRadius: 1,
-                        }}
-                      />
-                    </Box>
-                  ))}
-              </Slider>
-            </Box>
+            <ModalSlider images={project.images} title={project.title} />
+
             <Typography variant="h6" gutterBottom>
               プロジェクト概要
             </Typography>
             <Typography variant="body1" color="text.secondary" paragraph>
-              {
-                projects.find((p) => p.id === selectedProject)
-                  ?.detailedDescription
-              }
+              {project.detailDescription} {/* ← キー名を統一 */}
             </Typography>
+
             <Divider sx={{ my: 3 }} />
+
             <Typography variant="h6" gutterBottom>
               使用技術
             </Typography>
             <Box sx={{ display: "flex", gap: 1, mb: 3, flexWrap: "wrap" }}>
-              {projects
-                .find((p) => p.id === selectedProject)
-                ?.tags.map((tag: string) => (
-                  <Chip key={tag} label={tag} color="primary" />
-                ))}
+              {project.tags.map((tag: string) => (
+                <Chip key={tag} label={tag} color="primary" />
+              ))}
             </Box>
+
             <Typography variant="h6" gutterBottom>
               主な機能
             </Typography>
             <Box component="ul" sx={{ pl: 2, color: "text.secondary" }}>
-              {projects
-                .find((p) => p.id === selectedProject)
-                ?.features.map((feature: string, idx: number) => (
-                  <Typography
-                    component="li"
-                    variant="body2"
-                    key={idx}
-                    sx={{ mb: 1 }}
-                  >
-                    {feature}
-                  </Typography>
-                ))}
+              {project.features.map((feature: string, idx: number) => (
+                <Typography
+                  component="li"
+                  variant="body2"
+                  key={idx}
+                  sx={{ mb: 1 }}
+                >
+                  {feature}
+                </Typography>
+              ))}
             </Box>
           </DialogContent>
+
           <DialogActions sx={{ p: 2 }}>
             <Button variant="outlined" onClick={() => setSelectedProject(null)}>
               閉じる
@@ -134,7 +160,7 @@ function ProjectModal({
             <Button
               variant="contained"
               endIcon={<OpenInNew />}
-              href={projects.find((p) => p.id === selectedProject)?.link}
+              href={project.link}
             >
               プロジェクトを見る
             </Button>

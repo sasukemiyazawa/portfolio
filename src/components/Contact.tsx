@@ -1,5 +1,5 @@
 import { Box, Container, Typography, Button } from "@mui/material";
-import { Email, GitHub, LinkedIn } from "@mui/icons-material";
+import { Email, GitHub } from "@mui/icons-material";
 function Contact() {
   return (
     // {/* Contact Section */}

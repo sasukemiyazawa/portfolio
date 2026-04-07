@@ -39,7 +39,7 @@ export default function ScrollSnapLayout() {
         scrollToHobby={scrollToHobby}
       />
 
-      <Project props={{}} ref={projectRef} />
+      <Project ref={projectRef} />
 
       <Study ref={studyRef} />
 

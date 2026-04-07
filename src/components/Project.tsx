@@ -32,11 +32,10 @@ import hackason2 from "../assets/project/gesyuku2.png";
 import portfolio from "../assets/project/portfolio.png";
 
 // MotionCardはコンポーネント外で定義（再レンダリングのたびに再生成されるのを防ぐ）
-// TODO: motion.create(Card)に変更して、MotionCardを再利用可能なモーションコンポーネントにする
 const MotionCard = motion.create(Card);
 
 // -------------------------------------------------------
-// Emblaベースの画像スライダー（react-slick代替）
+// Emblaベースの画像スライダー
 // -------------------------------------------------------
 function ImageSlider({
   images,
@@ -127,13 +126,7 @@ function ImageSlider({
 // -------------------------------------------------------
 // Project コンポーネント本体
 // -------------------------------------------------------
-function Project({
-  props,
-  ref,
-}: {
-  props: any;
-  ref: React.Ref<HTMLDivElement>;
-}) {
+function Project({ ref }: { ref: React.Ref<HTMLDivElement> }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
@@ -144,7 +137,7 @@ function Project({
       title: "病院DXプロジェクト",
       description: "Webアプリケーションで動作するSNSとSNS管理アプリケーション",
       detailDescription:
-        "病院DXプロジェクトは、病院内のコミュニケーションを活性化するためのWebアプリケーションです。SNS機能を備えたフロントエンドと、管理者がコンテンツを管理できるバックエンドで構成されています。ReactとMaterial UIを使用してユーザーフレンドリーなインターフェースを実現し、Ruby on Railsで堅牢なAPIを構築しました。",
+        "新設する病院が地域との間で交流する場にするためにWebアプリケーションSNSを開発しました。このプロダクトは①アカウント登録が不必要なWebアプリケーションSNS、②管理者がコンテンツを管理できるアプリケーション、デザイン性に優れたデジタルサイネージ用アプリケーションの3つのフロントエンドとさらにそれを管理するバックエンドで構成されています。ReactとMaterial UIを使用してユーザーフレンドリーなインターフェースを実現し、Ruby on Railsで堅牢なAPIを構築しました。",
       images: [dx1, dx2, dx3, dx4],
       tags: ["React", "Ruby on Rails", "Material UI", "github"],
       features: [
@@ -152,7 +145,7 @@ function Project({
         "コンテンツ管理",
         "ユーザーフレンドリーなインターフェース",
       ],
-      link: "#",
+      link: "https://github.com/sasukemiyazawa/pictnect_frontend",
       height: 700,
     },
     {
@@ -160,8 +153,8 @@ function Project({
       title: "ナーススケジューリングシステム",
       description:
         "GAと数値最適化を用いた看護師のシフトスケジューリングシステム",
-      detailDeascription:
-        "ナーススケジューリングシステムは、看護師のシフトを効率的に管理するためのWebアプリケーションです。フロントエンドはReactで構築し、バックエンドはFastAPIを使用して高速なAPIを提供しています。スケジューリングアルゴリズムには、遺伝的アルゴリズムと数値最適化手法を組み合わせて、複雑な制約条件を考慮した最適なシフト配置を実現しています。",
+      detailDescription:
+        "ナーススケジューリングシステムは、看護師のシフトを効率的に管理するためのWebアプリケーションです。フロントエンドはReactで構築し、バックエンドはFastAPIを使用して高速なAPIを提供しています。スケジューリングアルゴリズムには、遺伝的アルゴリズムと数値最適化手法の2つのアプローチで、複雑な制約条件を考慮した最適なシフト配置を実現しています。",
       images: [nurse1, nurse2],
       tags: ["React", "Fast API", "Pulp", "Genelation Algorithm"],
       features: [
@@ -169,15 +162,15 @@ function Project({
         "遺伝的アルゴリズムと数値最適化",
         "高速なAPI",
       ],
-      link: "#",
+      link: "https://github.com/sasukemiyazawa/nurse-app",
       height: 326,
     },
     {
       id: 3,
       title: "デジタル野球盤",
       description: "イラストと演出を重視した野球盤ゲーム",
-      detaulDescription:
-        "デジタル野球盤は、従来の物理的な野球盤ゲームをデジタル化したプロジェクトです。Processingを使用して、イラストと演出にこだわったビジュアルを実現しています。プレイヤーは、マウスやキーボードを使って選手を操作し、リアルタイムで試合を楽しむことができます。シンプルながらも奥深いゲーム性と、魅力的なグラフィックが特徴です。",
+      detailDescription:
+        "デジタル野球盤は、従来の物理的な野球盤ゲームをデジタル化したプロジェクトです。Processingを使用して、イラストと演出にこだわったビジュアルを実現しています。プレイヤーは、マウスを使って選手を操作し、リアルタイムで試合を楽しむことができます。シンプルながらも奥深いゲーム性と、魅力的なグラフィックが特徴です。",
       images: [baseball, baseball2, baseball3],
       tags: ["Processing"],
       features: [
@@ -185,7 +178,7 @@ function Project({
         "イラストと演出にこだわったビジュアル",
         "リアルタイムな操作と試合展開",
       ],
-      link: "#",
+      link: "https://github.com/sasukemiyazawa/digital-baseball",
       height: 326,
     },
     {
@@ -194,15 +187,15 @@ function Project({
       description:
         "GPSを用いたWeb授業アプリケーション: ハッカソンで開発したプロジェクト",
       detailDescription:
-        "Web授業アプリケーションは、GPS機能を活用して、ユーザーの位置情報に基づいた授業コンテンツを提供するプロジェクトです。ハッカソンで開発され、短期間で完成させることが求められました。フロントエンドはReactで構築し、バックエンドはNode.jsを使用してリアルタイムなデータ処理を実現しています。ユーザーは、自分の位置に応じた授業資料やクイズにアクセスできるため、インタラクティブな学習体験が可能です。",
+        "Web授業アプリケーションは、GPS機能を活用して、非接触で声や文字を届けるプロダクトです。ハッカソンで開発し、「コロナ禍に大学などで使いたいプロダクト」というテーマで一週間開発に取り組みました。Node.jsとFirebaseを使用してリアルタイムなデータ処理を実現しています。3つの企業賞と優秀賞を受賞しました。",
       images: [hackason, hackason2],
-      tags: ["Node.js", "github"],
+      tags: ["Node.js", "Firebase", "github"],
       features: [
         "GPSを活用した授業コンテンツ提供",
         "リアルタイムなデータ処理",
         "インタラクティブな学習体験",
       ],
-      link: "#",
+      link: "https://github.com/FunLocks/team2011",
       height: 350,
     },
     {
@@ -218,7 +211,7 @@ function Project({
         "Material UIによるモダンなデザイン",
         "アニメーションとインタラクティブな要素",
       ],
-      link: "#",
+      link: "https://github.com/sasukemiyazawa/portfolio",
       height: 350,
     },
   ];
@@ -279,7 +272,7 @@ function Project({
                   }}
                   onClick={() => {
                     // TODO: モーダルを開いてプロジェクトの詳細を表示する機能を実装
-                    // setSelectedProject(project.id);
+                    setSelectedProject(project.id);
                     // console.log("Selected project ID:", selectedProject);
                   }}
                 >
